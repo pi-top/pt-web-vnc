@@ -19,8 +19,6 @@ Depends:
  novnc,
 # procps includes ps which is an undeclared dependency of novnc
  procps,
-# Advanced Wi-Fi configuration over VNC
- wpagui,
 # To create virtual display
  xvfb,
 # VNC server
