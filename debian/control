@@ -1,0 +1,33 @@
+Source: pi-top-web-vnc-tool
+Section: utils
+Priority: optional
+Maintainer: pi-top <deb-maintainers@pi-top.com>
+Build-Depends:
+ debhelper-compat (= 12),
+Standards-Version: 4.5.1
+Homepage: https://pi-top.com
+
+Package: pt-web-vnc
+Architecture: all
+Depends:
+ ${misc:Depends},
+ # Tiling window manager to handle windows in pt-web-vnc
+ bspwm,
+# To serve VNC over http
+ novnc,
+# Advanced Wi-Fi configuration over VNC
+ wpagui,
+# To create virtual display
+ xvfb,
+# VNC server
+ x11vnc,
+Conflicts:
+# menu is recommended by wpa_gui and makes unwanted additions to the start menu
+ menu,
+Description: pi-top Web VNC Tool
+ Easily start and stop VNC servers and publish them over HTTP.
+ .
+ This application is specifically developed to work on Raspberry Pi OS and
+ derivatives, such as pi-topOS, to create VNC servers that can share whole
+ displays or particular applications over http, without the need of a VNC
+ client.
