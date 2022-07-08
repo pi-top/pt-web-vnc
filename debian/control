@@ -13,8 +13,12 @@ Depends:
  ${misc:Depends},
 # Tiling window manager to handle windows in pt-web-vnc
  bspwm,
+# net-tools includes netstat which is an undeclared dependency of novnc
+ net-tools,
 # To serve VNC over http
  novnc,
+# procps includes ps which is an undeclared dependency of novnc
+ procps,
 # Advanced Wi-Fi configuration over VNC
  wpagui,
 # To create virtual display
