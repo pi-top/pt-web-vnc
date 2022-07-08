@@ -1,4 +1,8 @@
 #!/usr/bin/make -f
 
+export PYBUILD_NAME=pt_web_vnc
+# Override default 'python3-pt-web-vnc' behaviour
+export PYBUILD_DESTDIR_python3=debian/pt-web-vnc/
+
 %:
-	dh $@
+	dh $@ --buildsystem=pybuild
