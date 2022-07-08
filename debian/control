@@ -11,7 +11,7 @@ Package: pt-web-vnc
 Architecture: all
 Depends:
  ${misc:Depends},
- # Tiling window manager to handle windows in pt-web-vnc
+# Tiling window manager to handle windows in pt-web-vnc
  bspwm,
 # To serve VNC over http
  novnc,
