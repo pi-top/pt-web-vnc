@@ -195,7 +195,7 @@ USE_WINDOW_MANAGER=""
 BACKGROUND_COLOUR=""
 
 # Parse options
-VALID_ARGS="$(getopt -o w:i:s:r:v:o:d:b:mh --long window_title:,display_id:,ssl_certificate:,run:,height:,width:,depth:,background-colour:,with-window-manager,help --name pt-web-vnc -- "$@")"
+VALID_ARGS="$(getopt -o w:i:s:r:v:o:d:b:mh --long window-title:,display-id:,ssl-certificate:,run:,height:,width:,depth:,background-colour:,with-window-manager,help --name pt-web-vnc -- "$@")"
 if [[ $? -ne 0 ]]; then
     usage
     exit 1;
@@ -204,18 +204,18 @@ fi
 eval set -- "$VALID_ARGS"
 while [ : ]; do
     case "$1" in
-        -w | --window_title)
+        -w | --window-title)
             WINDOW_TITLE="${2}"
             shift 2
             ;;
-        -i | --display_id)
+        -i | --display-id)
             DISPLAY_ID=$(printf "%03d" ${2})
             VNC_PORT="41${DISPLAY_ID}"
             HTTP_PORT="61${DISPLAY_ID}"
             PIDS_FILE="/tmp/.pt-os-web-portal-vnc.${DISPLAY_ID}.pid"
             shift 2
             ;;
-        -s | --ssl_certificate)
+        -s | --ssl-certificate)
             SSL_CERT="${2}"
             shift 2
             ;;

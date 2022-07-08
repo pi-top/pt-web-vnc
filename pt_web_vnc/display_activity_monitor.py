@@ -2,6 +2,8 @@ import asyncio
 import logging
 from typing import Callable, List, Optional, Union
 
+from .vnc import VncConnectionDetails
+
 
 class DisplayActivityMonitor:
     display_number: int
@@ -56,3 +58,30 @@ class DisplayActivityMonitor:
         if self._monitor_task:
             self._monitor_task.cancel()
             await asyncio.wait(self._monitor_task)
+
+
+display_activity_monitors = {}
+
+
+def start_activity_monitor(
+    display_id: int,
+    on_display_activity: Callable,
+    connection_details: VncConnectionDetails,
+):
+    activity_monitor = DisplayActivityMonitor(display_id)
+
+    # Callback to run when there's activity in a display
+    def on_monitor_activity():
+        if connection_details:
+            on_display_activity(connection_details)
+
+    display_activity_monitors[display_id] = activity_monitor
+    activity_monitor.on_display_activity = on_monitor_activity
+    activity_monitor.start()
+
+
+def stop_activity_monitor(display_id: int):
+    activity_monitor = display_activity_monitors.get(id)
+    if activity_monitor:
+        activity_monitor.stop()
+        display_activity_monitors.pop(id)
