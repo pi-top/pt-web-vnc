@@ -71,7 +71,7 @@ def start_activity_monitor(
     activity_monitor = DisplayActivityMonitor(display_id)
 
     # Callback to run when there's activity in a display
-    def on_monitor_activity():
+    async def on_monitor_activity():
         if connection_details:
             on_display_activity(connection_details)
 
@@ -80,8 +80,8 @@ def start_activity_monitor(
     activity_monitor.start()
 
 
-def stop_activity_monitor(display_id: int):
-    activity_monitor = display_activity_monitors.get(id)
+async def stop_activity_monitor(display_id: int):
+    activity_monitor = display_activity_monitors.get(display_id)
     if activity_monitor:
-        activity_monitor.stop()
-        display_activity_monitors.pop(id)
+        await activity_monitor.stop()
+        display_activity_monitors.pop(display_id)
