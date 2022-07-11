@@ -2,7 +2,7 @@ import asyncio
 import logging
 from typing import Callable, List, Optional, Union
 
-from .vnc import VncConnectionDetails
+from .connection_details import VncConnectionDetails
 
 
 class DisplayActivityMonitor:
