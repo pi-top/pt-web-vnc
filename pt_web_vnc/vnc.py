@@ -1,8 +1,8 @@
 import asyncio
 import logging
 from typing import Callable, Optional
-from urllib.parse import urlparse
 
+from .connection_details import VncConnectionDetails
 from .display_activity_monitor import start_activity_monitor, stop_activity_monitor
 from .utils import run_command
 
@@ -22,7 +22,7 @@ class PtWebVncCommands:
         background_colour: Optional[str] = None,
         with_window_manager: Optional[bool] = None,
     ) -> str:
-        cmd = f"pt-web-vnc start --display-id {display_id}"
+        cmd = f"pt-web-vnc start --display-id {display_id} "
 
         if window_title:
             cmd += f"--window-title {window_title} "
@@ -49,27 +49,6 @@ class PtWebVncCommands:
     @staticmethod
     def url(display_id) -> str:
         return f"pt-web-vnc url --display-id {display_id}"
-
-
-class VncConnectionDetails:
-    def __init__(self, url) -> None:
-        self._parsed_url = urlparse(url)
-
-    @property
-    def url(self):
-        return self._parsed_url.geturl()
-
-    @property
-    def hostname(self):
-        return self._parsed_url.hostname
-
-    @property
-    def port(self):
-        return self._parsed_url.port
-
-    @property
-    def path(self):
-        return f"{self._parsed_url.path}?{self._parsed_url.query}"
 
 
 def start(
@@ -139,7 +118,9 @@ async def async_start(
         depth=depth,
         run=run,
         background_colour=background_colour,
-        with_window_manager=with_window_manager,
+        with_window_manager=True
+        if callable(on_display_activity)
+        else with_window_manager,
     )
 
     logging.info(f"Starting pt-web-vnc: {cmd}")
