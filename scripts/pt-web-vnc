@@ -164,7 +164,7 @@ do_stop() {
 
 
 get_url() {
-    echo "http://pi-top.local:${HTTP_PORT}/vnc.html?autoconnect=true"
+    echo "http://$(hostname).local:${HTTP_PORT}/vnc.html?autoconnect=true"
 }
 
 
