@@ -39,7 +39,7 @@ start_x11vnc() {
         WINDOW_ID=""
         WAIT_COUNTER=0
         SLEEP_TIME=1
-        MAX_WAIT_TIME=5
+        MAX_WAIT_TIME=15
 
         # Wait until window shows up or timeout
         while [ -z "${WINDOW_ID}" ] && [ $WAIT_COUNTER -lt $MAX_WAIT_TIME ]; do
@@ -169,7 +169,7 @@ get_url() {
 
 
 usage() {
-  echo -e "Usage:\n\tpt-web-vnc <COMMAND> --display_id <DISPLAY_ID> --HEIGHT <SCREEN_HEIGHT> --WIDTH <SCREEN_WIDTH> --ssl_certificate <SSL_CERTIFICATE> --window_title <WINDOW_TITLE> --run <RUN_COMMAND> --background-colour <COLOUR>"
+  echo -e "Usage:\n\tpt-web-vnc <COMMAND> --display-id <DISPLAY_ID> --HEIGHT <SCREEN_HEIGHT> --WIDTH <SCREEN_WIDTH> --ssl-certificate <SSL_CERTIFICATE> --window-title <WINDOW_TITLE> --run <RUN_COMMAND> --background-colour <COLOUR>"
   echo "where:"
   echo -e "\tCOMMAND: start, stop, url."
   echo -e "\tDISPLAY_ID: integer, id for the display to use/create."
@@ -206,6 +206,7 @@ while [ : ]; do
     case "$1" in
         -w | --window-title)
             WINDOW_TITLE="${2}"
+            USE_WINDOW_MANAGER="1"
             shift 2
             ;;
         -i | --display-id)
