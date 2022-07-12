@@ -19,8 +19,11 @@ Usage
 		RUN_COMMAND: Command to run before starting VNC server.
 		COLOUR: string with a colour name to use as background for the virtual display.
 
-Example: start a virtual display with custom dimensions and background
-----------------------------------------------------------------------
+Examples
+========
+
+Start a virtual display with custom dimensions and background
+-------------------------------------------------------------
 
 .. code-block:: bash
 
@@ -30,22 +33,22 @@ Example: start a virtual display with custom dimensions and background
 	http://pi-top.local:61100/vnc.html?autoconnect=true
 	$ pt-web-vnc stop --display-id 100
 
-Example: Run an application in a virtual display and share its window
----------------------------------------------------------------------
+Run an application in a virtual display and share its window
+------------------------------------------------------------
 
 By using the `--run` argument to start an application and providing its window title via `--window-title` it's possible to share a particular window.
 
 .. code-block:: bash
 
 	# Start chromium and look for its window title
-	$ pt-web-vnc start --display-id 50 --run 'chromium-browser --window-title 'New Tab - Chromium'
+	$ pt-web-vnc start --display-id 50 --run 'chromium-browser' --window-title 'New Tab - Chromium'
 	# Get the URL to connect
-	$ pt-web-vnc start --display-id 50
+	$ pt-web-vnc url --display-id 50
 	http://pi-top.local:61050/vnc.html?autoconnect=true
 	$ pt-web-vnc stop --display-id 50
 
-Example: share an existing display
-----------------------------------
+Share an existing display
+-------------------------
 
 It's possible to share your main display instead of creating a new one by providing its display id. In most cases, the id for your main display will be `0`.
 
@@ -53,6 +56,6 @@ It's possible to share your main display instead of creating a new one by provid
 
 	$ pt-web-vnc start --display-id 0
 	# Get the URL to connect
-	$ pt-web-vnc start --display-id 0
+	$ pt-web-vnc url --display-id 0
 	http://pi-top.local:61000/vnc.html?autoconnect=true
 	$ pt-web-vnc stop --display-id 000
