@@ -168,10 +168,17 @@ get_url() {
 }
 
 
+get_clients() {
+    clients=$(x11vnc -quiet -query client_count -display :"${DISPLAY_ID}" 2>/dev/null | sed 's/aro=client_count://')
+    [ -z "${clients}" ] && clients=0
+    echo "$clients"
+}
+
+
 usage() {
   echo -e "Usage:\n\tpt-web-vnc <COMMAND> --display-id <DISPLAY_ID> --HEIGHT <SCREEN_HEIGHT> --WIDTH <SCREEN_WIDTH> --ssl-certificate <SSL_CERTIFICATE> --window-title <WINDOW_TITLE> --run <RUN_COMMAND> --background-colour <COLOUR>"
   echo "where:"
-  echo -e "\tCOMMAND: start, stop, url."
+  echo -e "\tCOMMAND: start, stop, url, clients."
   echo -e "\tDISPLAY_ID: integer, id for the display to use/create."
   echo -e "\tSCREEN_HEIGHT: integer, height in pixels for the virtual display to create. Defaults to 1080."
   echo -e "\tSCREEN_WIDTH: integer, width in pixels for the virtual display to create. Defaults to 1920."
@@ -271,6 +278,11 @@ case "${COMMAND}" in
         [ -z "${DISPLAY_ID}" ] && echo "No display id provided" && usage && exit 1
         [ ! -f "${PIDS_FILE}" ] && echo "No active session in display ${DISPLAY_ID}" && exit 1
         get_url
+        ;;
+    clients)
+        [ -z "${DISPLAY_ID}" ] && echo "No display id provided" && usage && exit 1
+        [ ! -f "${PIDS_FILE}" ] && echo "No active session in display ${DISPLAY_ID}" && exit 1
+        get_clients
         ;;
     *)
         usage
