@@ -8,16 +8,19 @@ Usage
 
 .. code-block:: bash
 
-	pt-web-vnc <COMMAND> --display-id <DISPLAY_ID> --HEIGHT <SCREEN_HEIGHT> --WIDTH <SCREEN_WIDTH> --ssl_certificate <SSL_CERTIFICATE> --window-title <WINDOW_TITLE> --run <RUN_COMMAND> --background-colour <COLOUR>
-	where:
-		COMMAND: start, stop, url.
-		DISPLAY_ID: integer, id for the display to use/create.
-		SCREEN_HEIGHT: integer, height in pixels for the virtual display to create. Defaults to 1080.
-		SCREEN_WIDTH: integer, width in pixels for the virtual display to create. Defaults to 1920.
-		SSL_CERTIFICATE: path to combined SSL certificate & key file. Optional.
-		WINDOW_TITLE: Title of a window in a display to share over VNC. Optional.
-		RUN_COMMAND: Command to run before starting VNC server.
-		COLOUR: string with a colour name to use as background for the virtual display.
+  pt-web-vnc <COMMAND> --display-id <DISPLAY_ID> --HEIGHT <SCREEN_HEIGHT> --WIDTH <SCREEN_WIDTH> --ssl-certificate <SSL_CERTIFICATE> --window-title <WINDOW_TITLE> --run <RUN_COMMAND> --background-colour <COLOUR> --with-window-manager
+
+  where:
+    COMMAND: {start, stop, url, clients}
+    --display-id DISPLAY_ID: integer, id for the display to use/create.
+    --height SCREEN_HEIGHT: integer, height in pixels for the virtual display to create. Defaults to 1080.
+    --width SCREEN_WIDTH: integer, width in pixels for the virtual display to create. Defaults to 1920.
+    --depth SCREEN_DEPTH: integer, pixel depth for the virtual display to create. Defaults to 24.
+    --ssl-certificate SSL_CERTIFICATE: path to combined SSL certificate & key file. Optional.
+    --window-title WINDOW_TITLE: Title of a window in a display to share over VNC. Optional.
+    --run RUN_COMMAND: Command to run before starting VNC server.
+    --background-colour COLOUR: string with a colour name to use as background for the virtual display.
+    --with-window-manager: start a window manager in the specified DISPLAY_ID. For now, the window manager used is 'bspwm'.
 
 Examples
 ========
