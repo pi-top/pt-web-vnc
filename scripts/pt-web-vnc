@@ -176,16 +176,18 @@ get_clients() {
 
 
 usage() {
-  echo -e "Usage:\n\tpt-web-vnc <COMMAND> --display-id <DISPLAY_ID> --HEIGHT <SCREEN_HEIGHT> --WIDTH <SCREEN_WIDTH> --ssl-certificate <SSL_CERTIFICATE> --window-title <WINDOW_TITLE> --run <RUN_COMMAND> --background-colour <COLOUR>"
+  echo -e "Usage:\n\tpt-web-vnc <COMMAND> --display-id <DISPLAY_ID> --height <SCREEN_HEIGHT> --width <SCREEN_WIDTH> --ssl-certificate <SSL_CERTIFICATE> --window-title <WINDOW_TITLE> --run <RUN_COMMAND> --background-colour <COLOUR> --with-window-manager"
   echo "where:"
   echo -e "\tCOMMAND: start, stop, url, clients."
-  echo -e "\tDISPLAY_ID: integer, id for the display to use/create."
-  echo -e "\tSCREEN_HEIGHT: integer, height in pixels for the virtual display to create. Defaults to 1080."
-  echo -e "\tSCREEN_WIDTH: integer, width in pixels for the virtual display to create. Defaults to 1920."
-  echo -e "\tSSL_CERTIFICATE: path to combined SSL certificate & key file. Optional."
-  echo -e "\tWINDOW_TITLE: Title of a window in a display to share over VNC. Optional."
-  echo -e "\tRUN_COMMAND: Command to run before starting VNC server."
-  echo -e "\tCOLOUR: string with a colour name to use as background for the virtual display."
+  echo -e "\t--display-id DISPLAY_ID: integer, id for the display to use/create."
+  echo -e "\t--height SCREEN_HEIGHT: integer, height in pixels for the virtual display to create. Defaults to 1080."
+  echo -e "\t--width SCREEN_WIDTH: integer, width in pixels for the virtual display to create. Defaults to 1920."
+  echo -e "\t--depth SCREEN_DEPTH: integer, pixel depth for the virtual display to create. Defaults to 24."
+  echo -e "\t--ssl-certificate SSL_CERTIFICATE: path to combined SSL certificate & key file. Optional."
+  echo -e "\t--window-title WINDOW_TITLE: Title of a window in a display to share over VNC. Optional."
+  echo -e "\t--run RUN_COMMAND: Command to run before starting VNC server."
+  echo -e "\t--background-colour COLOUR: string with a colour name to use as background for the virtual display."
+  echo -e "\t--with-window-manager: start 'bspwm' window manager in the specified DISPLAY_ID."
 }
 
 
@@ -251,9 +253,9 @@ while [ : ]; do
             USE_WINDOW_MANAGER="1"
             shift
             ;;
-        -h | help)
+        -h | --help)
             usage
-            shift
+            exit 0
             ;;
         --) shift;
             break
