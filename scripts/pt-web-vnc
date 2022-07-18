@@ -8,6 +8,25 @@ IFS=$'\n\t'
 ###############################################################
 
 
+wait_for () {
+    WAIT_COUNTER=0
+    SLEEP_TIME=1
+    MAX_WAIT_TIME=15
+
+    command="$1"
+    until eval "${command}" &> /dev/null; do
+        echo .
+        sleep "${SLEEP_TIME}"
+        WAIT_COUNTER=$(( WAIT_COUNTER + 1 ))
+
+        if [ "${WAIT_COUNTER}" -eq "${MAX_WAIT_TIME}" ]; then
+            echo "Error: timeout waiting for '${command}' to succeed for ${MAX_WAIT_TIME} seconds, exiting"
+            return 1
+        fi
+    done
+}
+
+
 start_xvfb() {
     if [ "${DISPLAY_ID}" == "000" ]; then
         return
@@ -22,8 +41,6 @@ start_xvfb() {
     Xvfb ":${DISPLAY_ID}" -screen 0 "${SCREEN_WIDTH}x${SCREEN_HEIGHT}x${SCREEN_DEPTH}" &
     echo "Xvfb PID is $!"
     PIDS+=("$!")
-
-    sleep 2
 }
 
 
@@ -118,11 +135,21 @@ run_on_start_command() {
 }
 
 
+wait_for_display() {
+    echo "Waiting for display ${DISPLAY_ID} to become available..."
+    wait_for "DISPLAY=:${DISPLAY_ID} xrandr --query"
+    return "$?"
+}
+
+
 do_start() {
     do_stop
 
     # Create virtual display if necessary
     start_xvfb || (kill_pids && exit 1)
+
+    # Wait for display to become available
+    wait_for_display || (kill_pids && exit 1)
 
     # Load window manager if requested
     if [ -n "${USE_WINDOW_MANAGER}" ]; then
