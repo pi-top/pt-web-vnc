@@ -8,4 +8,4 @@ export PYBUILD_DESTDIR_python3=debian/pt-web-vnc/
 	dh $@ --buildsystem=pybuild
 
 override_dh_installsystemd:
-        dh_installsystemd --no-start --no-enable --name=pt-web-vnc-desktop
+	dh_installsystemd --no-start --no-enable --name=pt-web-vnc-desktop
