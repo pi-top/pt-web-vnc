@@ -29,9 +29,6 @@ Depends:
  x11vnc,
 # Provides 'xset' used to set a background colour
  x11-xserver-utils,
-Conflicts:
-# menu is recommended by wpa_gui and makes unwanted additions to the start menu
- menu,
 Description: pi-top Web VNC Tool
  Easily start and stop VNC servers and publish them over HTTP.
  .
