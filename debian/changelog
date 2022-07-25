@@ -1,4 +1,4 @@
-pi-top-web-vnc-tool (0.0.1-2) bullseye; urgency=medium
+pi-top-web-vnc-tool (0.1.0-1) bullseye; urgency=medium
 
   * Add python dependencies
   * Add version file
