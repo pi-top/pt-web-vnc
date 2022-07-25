@@ -1,3 +1,21 @@
+pi-top-web-vnc-tool (0.0.1-2) bullseye; urgency=medium
+
+  * Add python dependencies
+  * Add version file
+  * Implement start/stop/url operations in python module
+  * Add python async implementation of start/stop/url operations
+  * Move VncConnectionDetails to a separate file
+  * Await on_display_activity
+  * Add README
+  * Use hostname in URL
+  * Update readme
+  * Add command to retrieve connected clients
+  * Set resize=scale in URL query string
+  * Update README & cli usage
+  * Add systemd service to share desktop (#2)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Mon, 25 Jul 2022 14:33:19 +0000
+
 pi-top-web-vnc-tool (0.0.1-1) bullseye; urgency=medium
 
   * First version
