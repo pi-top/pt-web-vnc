@@ -50,6 +50,10 @@ class PtWebVncCommands:
     def url(display_id) -> str:
         return f"pt-web-vnc url --display-id {display_id}"
 
+    @staticmethod
+    def clients(display_id) -> str:
+        return f"pt-web-vnc clients --display-id {display_id}"
+
 
 def start(
     display_id: int,
@@ -95,6 +99,17 @@ def connection_details(display_id: int) -> VncConnectionDetails:
     logging.info(f"Getting pt-web-vnc connection details: {cmd}")
     url = run_command(cmd, timeout=10)
     return VncConnectionDetails(url=url.strip())
+
+
+def clients(display_id: int) -> int:
+    cmd = PtWebVncCommands.clients(display_id)
+    logging.info(f"Getting pt-web-vnc clients on display {display_id}: {cmd}")
+    try:
+        clients = int(run_command(cmd, timeout=10))
+    except Exception:
+        clients = 0
+    finally:
+        return clients
 
 
 async def async_start(
