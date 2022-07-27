@@ -3,6 +3,8 @@ pt-web-vnc
 
 Serve displays and particular applications via VNC & http using `x11vnc` & `novnc`.
 
+A python module `pt_web_vnc` is also included which provides synchronous and asynchronous wrappers around the `pt-web-vnc` script.
+
 Usage
 =====
 
@@ -12,6 +14,10 @@ Usage
 
   where:
     COMMAND: {start, stop, url, clients}
+      start: start sharing a display or app based on the given arguments.
+      stop: stop sharing the given display.
+      url: print the novnc URL where the provided display is being served.
+      clients: print the number of clients connected to a particular display.
     --display-id DISPLAY_ID: integer, id for the display to use/create.
     --height SCREEN_HEIGHT: integer, height in pixels for the virtual display to create. Defaults to 1080.
     --width SCREEN_WIDTH: integer, width in pixels for the virtual display to create. Defaults to 1920.
@@ -21,6 +27,7 @@ Usage
     --run RUN_COMMAND: Command to run before starting VNC server.
     --background-colour COLOUR: string with a colour name to use as background for the virtual display.
     --with-window-manager: start a window manager in the specified DISPLAY_ID. For now, the window manager used is 'bspwm'.
+
 
 Examples
 ========
