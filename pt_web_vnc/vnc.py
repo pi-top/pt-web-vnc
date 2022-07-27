@@ -174,3 +174,16 @@ async def async_connection_details(display_id: int) -> VncConnectionDetails:
     )
     novnc_url, _ = await proc.communicate()
     return VncConnectionDetails(url=novnc_url.decode().strip())
+
+
+async def async_clients(display_id: int) -> int:
+    cmd = PtWebVncCommands.clients(display_id)
+    logging.info(f"Getting pt-web-vnc clients on display {display_id}: {cmd}")
+
+    proc = await asyncio.create_subprocess_shell(
+        cmd,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    clients, _ = await proc.communicate()
+    return int(clients.strip())
