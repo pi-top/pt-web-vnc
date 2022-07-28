@@ -1,3 +1,10 @@
+pi-top-web-vnc-tool (0.1.0-3) bullseye; urgency=medium
+
+  * Add python wrapper for 'clients' command (#5)
+  * Add scheme property to VncConnectionDetails (#7)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Thu, 28 Jul 2022 17:28:38 +0000
+
 pi-top-web-vnc-tool (0.1.0-2) bullseye; urgency=medium
 
   * Deploy to PyPI on github release
