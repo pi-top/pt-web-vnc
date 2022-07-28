@@ -1,4 +1,4 @@
-pi-top-web-vnc-tool (0.1.0-3) bullseye; urgency=medium
+pi-top-web-vnc-tool (0.2.0-1) bullseye; urgency=medium
 
   * Add python wrapper for 'clients' command (#5)
   * Add scheme property to VncConnectionDetails (#7)
