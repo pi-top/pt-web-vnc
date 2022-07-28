@@ -18,5 +18,9 @@ class VncConnectionDetails:
         return self._parsed_url.port
 
     @property
+    def scheme(self):
+        return self._parsed_url.scheme
+
+    @property
     def path(self):
         return f"{self._parsed_url.path}?{self._parsed_url.query}"
