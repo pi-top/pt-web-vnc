@@ -1,13 +1,13 @@
 pt-web-vnc
 ==========
 
-Serve a display or the window of a particular application via VNC & http using `x11vnc` & `novnc`.
+Serve a display or the window of a particular application via VNC & http using :code:`x11vnc` & :code:`novnc`.
 
-The script can share an existing display or create a new one, depending on the provided display id. New displays are created using `Xvfb` and it's dimensions and color depth can be specified via command line arguments.
+The script can share an existing display or create a new one, depending on the provided display id. New displays are created using :code:`Xvfb` and it's dimensions and color depth can be specified via command line arguments.
 
 It's also possible to share particular windows from a display by using the 'window-title' argument. This will look for a window with the provided name in a given display and will only share that particular section of the display. If this argument is not provided, the whole display is shared.
 
-A python module `pt_web_vnc` is also included which provides synchronous and asynchronous wrappers around the `pt-web-vnc` script.
+A python module :code:`pt_web_vnc` is also included which provides synchronous and asynchronous wrappers around the :code:`pt-web-vnc` script.
 
 
 Usage
@@ -51,7 +51,7 @@ Start a virtual display with custom dimensions and background
 Run an application in a virtual display and share its window
 ------------------------------------------------------------
 
-By using the `--run` argument to start an application and providing its window title via `--window-title` it's possible to share a particular window.
+By using the :code:`--run` argument to start an application and providing its window title via :code:`--window-title` it's possible to share a particular window.
 
 .. code-block:: bash
 
@@ -65,7 +65,7 @@ By using the `--run` argument to start an application and providing its window t
 Share an existing display
 -------------------------
 
-It's possible to share your main display instead of creating a new one by providing its display id. In most cases, the id for your main display will be `0`.
+It's possible to share your main display instead of creating a new one by providing its display id. In most cases, the id for your main display will be :code:`0`.
 
 .. code-block:: bash
 
