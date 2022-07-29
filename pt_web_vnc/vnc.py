@@ -25,9 +25,9 @@ class PtWebVncCommands:
         cmd = f"pt-web-vnc start --display-id {display_id} "
 
         if window_title:
-            cmd += f"--window-title {window_title} "
+            cmd += f"--window-title '{window_title}' "
         if ssl_certificate:
-            cmd += f"--ssl-certificate {ssl_certificate} "
+            cmd += f"--ssl-certificate '{ssl_certificate}' "
         if height:
             cmd += f"--height {height} "
         if width:
@@ -35,9 +35,9 @@ class PtWebVncCommands:
         if depth:
             cmd += f"--depth {depth} "
         if run:
-            cmd += f"--run-command {run} "
+            cmd += f"--run '{run}' "
         if background_colour:
-            cmd += f"--background-colour {background_colour} "
+            cmd += f"--background-colour '{background_colour}' "
         if with_window_manager:
             cmd += "--with-window-manager "
         return cmd
