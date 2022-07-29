@@ -2,7 +2,9 @@ pt-web-vnc
 ==========
 
 Serve a display or the window of a particular application via VNC & http using `x11vnc` & `novnc`.
+
 The script can share an existing display or create a new one, depending on the provided display id. New displays are created using `Xvfb` and it's dimensions and color depth can be specified via command line arguments.
+
 It's also possible to share particular windows from a display by using the 'window-title' argument. This will look for a window with the provided name in a given display and will only share that particular section of the display. If this argument is not provided, the whole display is shared.
 
 A python module `pt_web_vnc` is also included which provides synchronous and asynchronous wrappers around the `pt-web-vnc` script.
@@ -112,7 +114,7 @@ Asynchronously start sharing display 0
   >>> details = asyncio.run(async_connection_details(display_id=0))
   >>> details.url
   'http://pi-top.local:61000/vnc.html?autoconnect=true&resize=scale'
-  >>> # Returned object also containes parsed elements of the URL
+  >>> # Returned object also contains parsed elements of the URL
   >>> details.scheme
   'http'
   >>> details.hostname
