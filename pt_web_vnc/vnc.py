@@ -186,4 +186,7 @@ async def async_clients(display_id: int) -> int:
         stderr=asyncio.subprocess.PIPE,
     )
     clients, _ = await proc.communicate()
-    return int(clients.strip())
+    try:
+        return int(clients.strip())
+    except Exception:
+        return 0
