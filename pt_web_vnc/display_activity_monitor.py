@@ -57,7 +57,7 @@ class DisplayActivityMonitor:
         self._stop = True
         if self._monitor_task:
             self._monitor_task.cancel()
-            await asyncio.wait(self._monitor_task)
+            await asyncio.wait([self._monitor_task])
 
 
 display_activity_monitors = {}
