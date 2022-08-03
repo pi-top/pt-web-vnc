@@ -154,13 +154,13 @@ async def async_start(
 async def async_stop(display_id: int) -> None:
     cmd = PtWebVncCommands.stop(display_id)
     logging.info(f"Stopping pt-web-vnc: {cmd}")
+    await stop_activity_monitor(display_id)
     proc = await asyncio.create_subprocess_shell(
         cmd,
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
     await proc.wait()
-    await stop_activity_monitor(display_id)
 
 
 async def async_connection_details(display_id: int) -> VncConnectionDetails:

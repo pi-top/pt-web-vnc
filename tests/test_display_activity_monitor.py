@@ -1,7 +1,7 @@
 import asyncio
-from unittest.mock import Mock
 
 import pytest
+from mock import AsyncMock
 from testpath import MockCommand
 
 from pt_web_vnc.connection_details import VncConnectionDetails
@@ -18,7 +18,7 @@ async def test_callback_called_on_activity():
     detail = VncConnectionDetails(
         "http://pi-top.local:61000/vnc.html?autoconnect=true&resize=scale"
     )
-    callback = Mock()
+    callback = AsyncMock()
 
     start_activity_monitor(100, callback, detail)
 
@@ -42,7 +42,7 @@ async def test_callback_not_called_if_no_activity():
     detail = VncConnectionDetails(
         "http://pi-top.local:61000/vnc.html?autoconnect=true&resize=scale"
     )
-    callback = Mock()
+    callback = AsyncMock()
 
     start_activity_monitor(100, callback, detail)
 
@@ -65,7 +65,7 @@ async def test_keep_track_of_displays_to_track_on_start_and_stop():
     detail = VncConnectionDetails(
         "http://pi-top.local:61000/vnc.html?autoconnect=true&resize=scale"
     )
-    callback = Mock()
+    callback = AsyncMock()
 
     assert len(display_activity_monitors) == 0
     start_activity_monitor(100, callback, detail)

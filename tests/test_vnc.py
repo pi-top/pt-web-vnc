@@ -76,6 +76,7 @@ async def test_async_start():
         await async_start(display_id=100)
 
     ptwebvnc.assert_called(["start", "--display-id", "100"])
+    await async_stop(display_id=100)
 
 
 @patch("pt_web_vnc.vnc.connection_details")
@@ -92,6 +93,7 @@ async def test_async_start_on_display_activity(
     start_activity_monitor_mock.assert_called_once_with(
         100, callback, connection_details_mock()
     )
+    await async_stop(display_id=100)
 
 
 @pytest.mark.asyncio
