@@ -42,7 +42,7 @@ async def test_async_e2e():
 
     await async_stop(display_id=100)
 
-    await asyncio.sleep(0.1)
+    await asyncio.sleep(1)
 
 
 def test_e2e():
