@@ -1,9 +1,14 @@
 pt-web-vnc
 ==========
 
-Serve displays and particular applications via VNC & http using `x11vnc` & `novnc`.
+Serve a display or the window of a particular application via VNC & http using :code:`x11vnc` & :code:`novnc`.
 
-A python module `pt_web_vnc` is also included which provides synchronous and asynchronous wrappers around the `pt-web-vnc` script.
+The script can share an existing display or create a new one, depending on the provided display id. New displays are created using :code:`Xvfb` and it's dimensions and color depth can be specified via command line arguments.
+
+It's also possible to share particular windows from a display by using the 'window-title' argument. This will look for a window with the provided name in a given display and will only share that particular section of the display. If this argument is not provided, the whole display is shared.
+
+A python module :code:`pt_web_vnc` is also included which provides synchronous and asynchronous wrappers around the :code:`pt-web-vnc` script.
+
 
 Usage
 =====
@@ -18,7 +23,7 @@ Usage
       stop: stop sharing the given display.
       url: print the novnc URL where the provided display is being served.
       clients: print the number of clients connected to a particular display.
-    --display-id DISPLAY_ID: integer, id for the display to use/create.
+    --display-id DISPLAY_ID: integer, id for the display to use/create. If the provided display ID doesn\'t exist, a new one will be created.
     --height SCREEN_HEIGHT: integer, height in pixels for the virtual display to create. Defaults to 1080.
     --width SCREEN_WIDTH: integer, width in pixels for the virtual display to create. Defaults to 1920.
     --depth SCREEN_DEPTH: integer, pixel depth for the virtual display to create. Defaults to 24.
@@ -39,14 +44,14 @@ Start a virtual display with custom dimensions and background
 
 	$ pt-web-vnc start --display-id 100 --height 500 --width 1000 --background-colour red
 	# Get the URL to connect
-	$ pt-web-vnc start --display-id 100
+	$ pt-web-vnc url --display-id 100
 	http://pi-top.local:61100/vnc.html?autoconnect=true
 	$ pt-web-vnc stop --display-id 100
 
 Run an application in a virtual display and share its window
 ------------------------------------------------------------
 
-By using the `--run` argument to start an application and providing its window title via `--window-title` it's possible to share a particular window.
+By using the :code:`--run` argument to start an application and providing its window title via :code:`--window-title` it's possible to share a particular window.
 
 .. code-block:: bash
 
@@ -60,7 +65,7 @@ By using the `--run` argument to start an application and providing its window t
 Share an existing display
 -------------------------
 
-It's possible to share your main display instead of creating a new one by providing its display id. In most cases, the id for your main display will be `0`.
+It's possible to share your main display instead of creating a new one by providing its display id. In most cases, the id for your main display will be :code:`0`.
 
 .. code-block:: bash
 
@@ -69,3 +74,54 @@ It's possible to share your main display instead of creating a new one by provid
 	$ pt-web-vnc url --display-id 0
 	http://pi-top.local:61000/vnc.html?autoconnect=true
 	$ pt-web-vnc stop --display-id 000
+
+
+Python module examples
+======================
+
+Create and share a display with custom dimensions and background colour
+-----------------------------------------------------------------------
+
+.. code-block:: python
+
+  >>> from pt_web_vnc import start, connection_details, stop
+  >>> start(
+  	display_id=50,
+  	height=500,
+  	width=1000,
+  	background_colour="blue",
+  )
+  >>> # Get connection details
+  >>> details = connection_details(display_id=50)
+  >>> details.url
+  'http://pi-top.local:61050/vnc.html?autoconnect=true&resize=scale'
+
+  >>> # Stop sharing
+  >>> stop(display_id=50)
+
+
+Asynchronously start sharing display 0
+--------------------------------------
+
+.. code-block:: python
+
+  >>> import asyncio
+  >>> from pt_web_vnc import async_start, async_connection_details, async_stop
+  >>> # Start sharing display 0
+  >>> asyncio.run(async_start(display_id=0)
+  ...
+  >>> # Get connection details
+  >>> details = asyncio.run(async_connection_details(display_id=0))
+  >>> details.url
+  'http://pi-top.local:61000/vnc.html?autoconnect=true&resize=scale'
+  >>> # Returned object also contains parsed elements of the URL
+  >>> details.scheme
+  'http'
+  >>> details.hostname
+  'pi-top.local'
+  >>> details.port
+  61000
+  >>> details.path
+  '/vnc.html?autoconnect=true&resize=scale'
+  >>> # Stop sharing display 0
+  >>> asyncio.run(async_stop(display_id=0)

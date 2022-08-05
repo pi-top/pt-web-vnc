@@ -249,7 +249,7 @@ while [ : ]; do
             DISPLAY_ID=$(printf "%03d" ${2})
             VNC_PORT="41${DISPLAY_ID}"
             HTTP_PORT="61${DISPLAY_ID}"
-            PIDS_FILE="/tmp/.pt-os-web-portal-vnc.${DISPLAY_ID}.pid"
+            PIDS_FILE="/tmp/.pt-web-vnc.${DISPLAY_ID}.pid"
             shift 2
             ;;
         -s | --ssl-certificate)
