@@ -1,4 +1,4 @@
-pi-top-web-vnc-tool (0.2.0-2) bullseye; urgency=medium
+pi-top-web-vnc-tool (0.3.0-1) bullseye; urgency=medium
 
   * Improve README (#8)
   * Support novnc 1.3.0 (#11)
