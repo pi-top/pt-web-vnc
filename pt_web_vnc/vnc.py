@@ -80,12 +80,12 @@ def start(
     )
 
     logging.info(f"Starting pt-web-vnc: {cmd}")
-    run_command(cmd, timeout=10)
 
     if callable(on_display_activity):
         raise NotImplementedError(
             "To run the 'on activity' feature, use the 'async_start' function"
         )
+    run_command(cmd, timeout=10)
 
 
 def stop(display_id: int) -> None:
