@@ -50,7 +50,7 @@ async def test_async_e2e():
 
     await async_stop(display_id=100)
 
-    await asyncio.sleep(5)
+    await asyncio.sleep(10)
 
     # Server isn't running
     with pytest.raises(requests.exceptions.ConnectionError):
