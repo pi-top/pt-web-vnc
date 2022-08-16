@@ -1,3 +1,4 @@
+import asyncio
 from unittest.mock import Mock, patch
 
 import pytest
@@ -24,11 +25,14 @@ def test_start():
 
 def test_start_on_display_activity():
     callback = Mock()
-    with MockCommand("pt-web-vnc") as ptwebvnc:
-        with pytest.raises(NotImplementedError):
-            start(display_id=100, on_display_activity=callback)
+    with MockCommand("xwininfo") as xwininfo:
+        with MockCommand("pt-web-vnc") as ptwebvnc:
+            with pytest.raises(NotImplementedError):
+                # This is only implemented in the async API
+                start(display_id=100, on_display_activity=callback)
 
-    ptwebvnc.assert_called(["start", "--display-id", "100"])
+    assert len(xwininfo.get_calls()) == 0
+    assert len(ptwebvnc.get_calls()) == 0
 
 
 def test_stop():
@@ -80,19 +84,19 @@ async def test_async_start():
 
 
 @patch("pt_web_vnc.vnc.connection_details")
-@patch("pt_web_vnc.vnc.start_activity_monitor")
 @pytest.mark.asyncio
-async def test_async_start_on_display_activity(
-    start_activity_monitor_mock, connection_details_mock
-):
+async def test_async_start_on_display_activity(connection_details_mock):
     callback = Mock()
     with MockCommand("pt-web-vnc") as ptwebvnc:
         await async_start(display_id=100, on_display_activity=callback)
 
     ptwebvnc.assert_called(["start", "--display-id", "100", "--with-window-manager"])
-    start_activity_monitor_mock.assert_called_once_with(
-        100, callback, connection_details_mock()
-    )
+
+    with MockCommand.fixed_output("xwininfo") as xwininfo:
+        await asyncio.sleep(0.2)  # wait for display monitor to find this
+
+    xwininfo.assert_called()
+
     await async_stop(display_id=100)
 
 
