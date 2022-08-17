@@ -55,9 +55,10 @@ class DisplayActivityMonitor:
             f"Stopping checks for activity on display '{self.display_number}'"
         )
         self._stop = True
-        if self._monitor_task:
+        if self._monitor_task and not self._monitor_task.done():
             self._monitor_task.cancel()
-            await asyncio.wait(self._monitor_task)
+            await asyncio.wait([self._monitor_task])
+            self._monitor_task = None
 
 
 display_activity_monitors = {}

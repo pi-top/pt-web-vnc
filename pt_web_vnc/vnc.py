@@ -80,12 +80,12 @@ def start(
     )
 
     logging.info(f"Starting pt-web-vnc: {cmd}")
-    run_command(cmd, timeout=10)
 
     if callable(on_display_activity):
         raise NotImplementedError(
             "To run the 'on activity' feature, use the 'async_start' function"
         )
+    run_command(cmd, timeout=10)
 
 
 def stop(display_id: int) -> None:
@@ -154,13 +154,13 @@ async def async_start(
 async def async_stop(display_id: int) -> None:
     cmd = PtWebVncCommands.stop(display_id)
     logging.info(f"Stopping pt-web-vnc: {cmd}")
+    await stop_activity_monitor(display_id)
     proc = await asyncio.create_subprocess_shell(
         cmd,
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
     await proc.wait()
-    await stop_activity_monitor(display_id)
 
 
 async def async_connection_details(display_id: int) -> VncConnectionDetails:
@@ -186,4 +186,7 @@ async def async_clients(display_id: int) -> int:
         stderr=asyncio.subprocess.PIPE,
     )
     clients, _ = await proc.communicate()
-    return int(clients.strip())
+    try:
+        return int(clients.strip())
+    except Exception:
+        return 0
