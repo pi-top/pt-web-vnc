@@ -9,3 +9,6 @@ export PYBUILD_DESTDIR_python3=debian/pt-web-vnc/
 
 override_dh_installsystemd:
 	dh_installsystemd --name=pt-web-vnc-desktop
+
+override_dh_auto_test:
+	# Don't run the tests!

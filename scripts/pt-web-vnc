@@ -116,6 +116,9 @@ kill_pids() {
     for PID in "${PIDS[@]}"; do
         echo "Killing PID ${PID}..."
         if [ -n "${PID}" ]; then
+            # Kill child processes of PID
+            pkill -P "${PID}" || true
+            # Kill PID
             kill "${PID}" || true
         fi
     done

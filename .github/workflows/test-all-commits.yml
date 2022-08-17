@@ -1,0 +1,43 @@
+name: Run Tests and Upload Coverage Report
+
+on: push
+
+jobs:
+  test-python-coverage-report:
+   runs-on: ubuntu-20.04
+   steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
+
+     - name: Setup Python
+       uses: actions/setup-python@v4
+       with:
+         python-version: 3.9
+
+     - name: Install dependencies
+       run: |
+         sudo apt update
+         sudo apt install python3-pip -y
+         sudo apt install -y bspwm \
+           net-tools \
+           novnc \
+           procps \
+           python3-tk \
+           xvfb \
+           x11vnc \
+           x11-xserver-utils
+         pip3 install .[test]
+
+     - name: Run Python tests and generate coverage report
+       run: |
+         pytest --verbose --cov-report term-missing --cov=pt_web_vnc
+         coverage xml
+
+     - name: Upload Python test coverage reports to Codecov
+       uses: codecov/codecov-action@v3.1.0
+       with:
+         files: ./coverage.xml
+         flags: python-tests
+         env_vars: OS,PYTHON
+         fail_ci_if_error: true
+         verbose: true
