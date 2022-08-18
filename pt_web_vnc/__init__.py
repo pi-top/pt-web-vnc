@@ -1,3 +1,4 @@
+from .version import __version__
 from .vnc import (
     async_clients,
     async_connection_details,
