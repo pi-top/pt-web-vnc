@@ -105,11 +105,9 @@ def clients(display_id: int) -> int:
     cmd = PtWebVncCommands.clients(display_id)
     logging.info(f"Getting pt-web-vnc clients on display {display_id}: {cmd}")
     try:
-        clients = int(run_command(cmd, timeout=10))
+        return int(run_command(cmd, timeout=10))
     except Exception:
-        clients = 0
-    finally:
-        return clients
+        return 0
 
 
 async def async_start(
