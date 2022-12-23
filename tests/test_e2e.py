@@ -54,7 +54,7 @@ async def test_async_e2e():
 
     # Server isn't running
     with pytest.raises(requests.exceptions.ConnectionError):
-        r = requests.get(url)
+        requests.get(url)
 
 
 def test_e2e():
@@ -75,4 +75,4 @@ def test_e2e():
 
     # Server isn't running
     with pytest.raises(requests.exceptions.ConnectionError):
-        r = requests.get(url)
+        requests.get(url)

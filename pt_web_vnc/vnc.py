@@ -108,8 +108,7 @@ def clients(display_id: int) -> int:
         clients = int(run_command(cmd, timeout=10))
     except Exception:
         clients = 0
-    finally:
-        return clients
+    return clients
 
 
 async def async_start(
