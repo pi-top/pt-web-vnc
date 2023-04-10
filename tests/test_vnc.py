@@ -65,7 +65,6 @@ def test_clients():
     ),
 )
 def test_clients_output(command_output, expected_result):
-
     with MockCommand.fixed_output("pt-web-vnc", command_output) as ptwebvnc:
         connected_clients = clients(display_id=100)
 
@@ -75,7 +74,6 @@ def test_clients_output(command_output, expected_result):
 
 @pytest.mark.asyncio
 async def test_async_start():
-
     with MockCommand("pt-web-vnc") as ptwebvnc:
         await async_start(display_id=100)
 
@@ -134,7 +132,6 @@ async def test_async_clients():
     ),
 )
 async def test_async_clients_output(command_output, expected_result):
-
     with MockCommand.fixed_output("pt-web-vnc", command_output) as ptwebvnc:
         clients = await async_clients(display_id=100)
 
