@@ -14,7 +14,6 @@ from pt_web_vnc.display_activity_monitor import (
 
 @pytest.mark.asyncio
 async def test_callback_called_on_activity():
-
     detail = VncConnectionDetails(
         "http://pi-top.local:61000/vnc.html?autoconnect=true&resize=scale"
     )
@@ -38,7 +37,6 @@ async def test_callback_called_on_activity():
 
 @pytest.mark.asyncio
 async def test_callback_not_called_if_no_activity():
-
     detail = VncConnectionDetails(
         "http://pi-top.local:61000/vnc.html?autoconnect=true&resize=scale"
     )
