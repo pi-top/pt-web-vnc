@@ -1,4 +1,5 @@
 import atexit
+import logging
 from time import sleep
 from PIL import ImageGrab
 from threading import Thread
@@ -21,7 +22,7 @@ class ScreenshotMonitor:
                 self.image = self.take_screenshot()
                 sleep(self.screenshot_timeout)
             except Exception as e:
-                print(f"Error taking screenshot: {e}")
+                logging.error(f"Error taking screenshot: {e}")
         self.stop()
 
     def take_screenshot(self):
