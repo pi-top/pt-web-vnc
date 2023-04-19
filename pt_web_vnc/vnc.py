@@ -4,6 +4,7 @@ from typing import Callable, Optional
 
 from .connection_details import VncConnectionDetails
 from .display_activity_monitor import start_activity_monitor, stop_activity_monitor
+from .screenshot_monitor import ScreenshotMonitor
 from .utils import run_command
 
 logger = logging.getLogger(__name__)
@@ -121,7 +122,8 @@ async def async_start(
     background_colour: Optional[str] = None,
     with_window_manager: Optional[bool] = None,
     on_display_activity: Optional[Callable] = None,
-) -> None:
+    screenshot_timeout: int = 0,
+) -> Optional[ScreenshotMonitor]:
     cmd = PtWebVncCommands.start(
         display_id=display_id,
         window_title=window_title,
@@ -147,6 +149,11 @@ async def async_start(
         start_activity_monitor(
             display_id, on_display_activity, connection_details(display_id)
         )
+
+    screenshot_monitor = None
+    if screenshot_timeout > 0:
+        screenshot_monitor = ScreenshotMonitor(display_id, screenshot_timeout)
+    return screenshot_monitor
 
 
 async def async_stop(display_id: int) -> None:

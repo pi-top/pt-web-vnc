@@ -3,6 +3,7 @@ import re
 from os import environ
 from tkinter import Tk
 
+import PIL
 import pytest
 import requests
 from mock import AsyncMock
@@ -20,15 +21,17 @@ from pt_web_vnc.vnc import (
 @pytest.mark.asyncio
 async def test_async_e2e():
     callback = AsyncMock()
-    await async_start(display_id=100, on_display_activity=callback)
+    screenshot_manager = await async_start(
+        display_id=99, on_display_activity=callback, screenshot_timeout=1
+    )
 
     await asyncio.sleep(1)
 
-    details = await async_connection_details(display_id=100)
+    details = await async_connection_details(display_id=99)
 
     # URL has the correct format
     regex = (
-        r"http\:\/\/[\-\.a-zA-Z0-9]+:61100\/vnc\.html\?autoconnect=true&resize=scale"
+        r"http\:\/\/[\-\.a-zA-Z0-9]+:61099\/vnc\.html\?autoconnect=true&resize=scale"
     )
     assert re.match(regex, details.url)
 
@@ -40,7 +43,7 @@ async def test_async_e2e():
     assert callback.call_count == 0
 
     # force display activity
-    environ["DISPLAY"] = ":100"
+    environ["DISPLAY"] = ":99"
     Tk()
 
     await asyncio.sleep(2)
@@ -48,7 +51,13 @@ async def test_async_e2e():
     # Callback was called after display activity
     assert callback.call_count == 1
 
-    await async_stop(display_id=100)
+    # Screenshots are available
+    assert screenshot_manager is not None
+    assert isinstance(screenshot_manager.image, PIL.Image.Image)
+    assert screenshot_manager.image.size == (1920, 1080)
+
+    # Stop server
+    await async_stop(display_id=99)
 
     await asyncio.sleep(1)
 

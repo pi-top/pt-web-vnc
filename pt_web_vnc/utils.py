@@ -3,7 +3,7 @@ from shlex import split
 from subprocess import run
 
 
-def run_command(command_str: str, timeout: int) -> str:
+def run_command(command_str: str, timeout: int, check: bool = False) -> str:
     def __get_env():
         env = environ.copy()
         # Print output of commands in english
@@ -13,7 +13,7 @@ def run_command(command_str: str, timeout: int) -> str:
     try:
         resp = run(
             split(command_str),
-            check=False,
+            check=check,
             capture_output=True,
             timeout=timeout,
             env=__get_env(),
