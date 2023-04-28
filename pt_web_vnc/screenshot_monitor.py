@@ -1,7 +1,5 @@
-import atexit
+import asyncio
 import logging
-from threading import Thread
-from time import sleep
 
 from PIL import ImageGrab
 
@@ -13,24 +11,19 @@ class ScreenshotMonitor:
         self.display_id = display_id
         self.screenshot_timeout = screenshot_timeout
         self.image = None
-        self.take_screenshots = True
-        self.thread = Thread(target=self.screenshot_loop, daemon=True)
-        self.thread.start()
-        atexit.register(self.stop)
+        self._stop = False
+        self._monitor_task = asyncio.create_task(self._screenshot_loop())
 
-    def screenshot_loop(self):
-        while self.display_is_alive() and self.take_screenshots:
+    async def _screenshot_loop(self):
+        while self._display_is_alive() and not self._stop:
             try:
-                self.image = self.grab_screenshot()
-                sleep(self.screenshot_timeout)
+                self.image = ImageGrab.grab(xdisplay=f":{self.display_id}")
             except Exception as e:
                 logging.error(f"Error taking screenshot: {e}")
+            await asyncio.sleep(self.screenshot_timeout)
         self.stop()
 
-    def grab_screenshot(self):
-        return ImageGrab.grab(xdisplay=f":{self.display_id}")
-
-    def display_is_alive(self) -> bool:
+    def _display_is_alive(self) -> bool:
         try:
             run_command(
                 f"xwininfo -d ':{self.display_id}' -all -root",
@@ -41,7 +34,9 @@ class ScreenshotMonitor:
         except Exception:
             return False
 
-    def stop(self):
-        self.take_screenshots = False
-        if self.thread and self.thread.is_alive():
-            self.thread.join()
+    async def stop(self):
+        self._stop = True
+        if self._monitor_task and not self._monitor_task.done():
+            self._monitor_task.cancel()
+            await asyncio.wait([self._monitor_task])
+            self._monitor_task = None
