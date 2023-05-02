@@ -4,7 +4,11 @@ from typing import Callable, Optional
 
 from .connection_details import VncConnectionDetails
 from .display_activity_monitor import start_activity_monitor, stop_activity_monitor
-from .screenshot_monitor import ScreenshotMonitor
+from .screenshot_monitor import (
+    ScreenshotMonitor,
+    start_screenshot_monitor,
+    stop_screenshot_monitor,
+)
 from .utils import run_command
 
 logger = logging.getLogger(__name__)
@@ -152,7 +156,7 @@ async def async_start(
 
     screenshot_monitor = None
     if screenshot_timeout > 0:
-        screenshot_monitor = ScreenshotMonitor(display_id, screenshot_timeout)
+        screenshot_monitor = start_screenshot_monitor(display_id, screenshot_timeout)
     return screenshot_monitor
 
 
@@ -160,6 +164,7 @@ async def async_stop(display_id: int) -> None:
     cmd = PtWebVncCommands.stop(display_id)
     logging.info(f"Stopping pt-web-vnc: {cmd}")
     await stop_activity_monitor(display_id)
+    await stop_screenshot_monitor(display_id)
     proc = await asyncio.create_subprocess_shell(
         cmd,
         stdout=asyncio.subprocess.PIPE,
