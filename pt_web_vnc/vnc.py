@@ -4,7 +4,11 @@ from typing import Callable, Optional
 
 from .connection_details import VncConnectionDetails
 from .display_activity_monitor import start_activity_monitor, stop_activity_monitor
-from .screenshot_monitor import ScreenshotMonitor
+from .screenshot_monitor import (
+    ScreenshotMonitor,
+    start_screenshot_monitor,
+    stop_screenshot_monitor,
+)
 from .utils import run_command
 
 logger = logging.getLogger(__name__)

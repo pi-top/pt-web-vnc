@@ -47,7 +47,7 @@ class ScreenshotMonitor:
 screenshot_monitors = {}
 
 
-def start_activity_monitor(
+def start_screenshot_monitor(
     display_id: int,
     screenshot_timeout,
 ):
@@ -55,6 +55,7 @@ def start_activity_monitor(
 
     screenshot_monitors[display_id] = screenshot_monitor
     screenshot_monitor.start()
+    return screenshot_monitor
 
 
 async def stop_screenshot_monitor(display_id: int):
