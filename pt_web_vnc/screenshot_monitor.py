@@ -12,6 +12,8 @@ class ScreenshotMonitor:
         self.screenshot_timeout = screenshot_timeout
         self.image = None
         self._stop = False
+
+    def start(self) -> None:
         self._monitor_task = asyncio.create_task(self._screenshot_loop())
 
     async def _screenshot_loop(self):
@@ -40,3 +42,23 @@ class ScreenshotMonitor:
             self._monitor_task.cancel()
             await asyncio.wait([self._monitor_task])
             self._monitor_task = None
+
+
+screenshot_monitors = {}
+
+
+def start_activity_monitor(
+    display_id: int,
+    screenshot_timeout,
+):
+    screenshot_monitor = ScreenshotMonitor(display_id, screenshot_timeout)
+
+    screenshot_monitors[display_id] = screenshot_monitor
+    screenshot_monitor.start()
+
+
+async def stop_screenshot_monitor(display_id: int):
+    screenshot_monitor = screenshot_monitors.get(display_id)
+    if screenshot_monitor:
+        await screenshot_monitor.stop()
+        screenshot_monitors.pop(display_id)
