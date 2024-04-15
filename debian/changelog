@@ -1,3 +1,9 @@
+pi-top-web-vnc-tool (0.5.1-2) bullseye; urgency=medium
+
+  * Redirect to DEVNULL instead of PIPE on async operations (#27)
+
+ -- pi-top <deb-maintainers@pi-top.com>  Mon, 15 Apr 2024 18:31:54 +0000
+
 pi-top-web-vnc-tool (0.5.1-1) bullseye; urgency=medium
 
   * Updated master workflow files
