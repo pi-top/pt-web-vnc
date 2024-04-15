@@ -108,7 +108,7 @@ Asynchronously start sharing display 0
   >>> import asyncio
   >>> from pt_web_vnc import async_start, async_connection_details, async_stop
   >>> # Start sharing display 0
-  >>> asyncio.run(async_start(display_id=0)
+  >>> asyncio.run(async_start(display_id=0))
   ...
   >>> # Get connection details
   >>> details = asyncio.run(async_connection_details(display_id=0))
