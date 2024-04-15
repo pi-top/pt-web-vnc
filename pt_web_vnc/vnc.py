@@ -145,8 +145,8 @@ async def async_start(
     logging.info(f"Starting pt-web-vnc: {cmd}")
     proc = await asyncio.create_subprocess_shell(
         cmd,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.DEVNULL,
+        stderr=asyncio.subprocess.DEVNULL,
     )
     await proc.wait()
     if callable(on_display_activity):
@@ -167,8 +167,8 @@ async def async_stop(display_id: int) -> None:
     await stop_screenshot_monitor(display_id)
     proc = await asyncio.create_subprocess_shell(
         cmd,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
+        stdout=asyncio.subprocess.DEVNULL,
+        stderr=asyncio.subprocess.DEVNULL,
     )
     await proc.wait()
 
