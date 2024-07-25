@@ -1,12 +1,12 @@
 [Unit]
 Description=Shares desktop via VNC & HTTP
 Documentation=https://knowledgebase.pi-top.com/knowledge
-After=graphical.target
+After=lightdm.service
 
 [Service]
 Type=simple
 RemainAfterExit=yes
-Restart=no
+Restart=yes
 ExecStart=/usr/bin/pt-web-vnc start --display-id 0
 ExecStop=/usr/bin/pt-web-vnc stop --display-id 0
 
