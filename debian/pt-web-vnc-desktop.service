@@ -1,6 +1,7 @@
 [Unit]
 Description=Shares desktop via VNC & HTTP
 Documentation=https://knowledgebase.pi-top.com/knowledge
+After=graphical.target
 
 [Service]
 Type=simple
