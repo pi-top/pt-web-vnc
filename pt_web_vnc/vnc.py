@@ -137,9 +137,9 @@ async def async_start(
         depth=depth,
         run=run,
         background_colour=background_colour,
-        with_window_manager=True
-        if callable(on_display_activity)
-        else with_window_manager,
+        with_window_manager=(
+            True if callable(on_display_activity) else with_window_manager
+        ),
     )
 
     logging.info(f"Starting pt-web-vnc: {cmd}")
