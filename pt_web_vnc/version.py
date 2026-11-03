@@ -1,7 +1,7 @@
-from pkg_resources import get_distribution
+from importlib.metadata import version
 
 __version__ = "N/A"
 try:
-    __version__ = get_distribution("pt_web_vnc").version
+    __version__ = version("pt_web_vnc")
 except Exception:
     pass
