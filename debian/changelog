@@ -1,3 +1,19 @@
+pi-top-web-vnc-tool (0.6.0-1) bookworm; urgency=medium
+
+  * Updated master workflow files
+  * Updated master workflow files
+  * Updated master workflow files
+  * Updated master workflow files
+  * Regenerate Debian workflows: drop bullseye, move off the dead runner (#33)
+  * Remove debian/bullseye-overrides (#34)
+  * Create releases with the workflow's own token
+  * Fix the pre-commit hooks
+  * Move autopep8 to hhatto/autopep8 v2.3.1
+  * Move CodeQL to codeql-action v4 and drop the schedule
+  * Allow running the changelog bump by hand
+
+ -- pi-top <deb-maintainers@pi-top.com>  Fri, 13 Nov 2026 14:15:58 +0000
+
 pi-top-web-vnc-tool (0.5.2-1) bullseye; urgency=medium
 
   * Update workflows
